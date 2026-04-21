@@ -44,7 +44,6 @@
 #• Métodos sobrecargados (por ejemplo, diferentes variantes del
 #cálculo de costos con impuestos, descuentos o parámetros
 #opcionales).
-#3
 #• Un archivo de logs donde se registren todos los errores y eventos
 #relevantes.
 #El sistema, sin utilizar ningún motor de base de datos, debe simular al
