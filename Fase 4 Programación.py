@@ -1,4 +1,4 @@
-#Descripción del ejercicio ##
+#Descripción del ejercicio 
 #Grupo-411
 #Ejercicio 1: Sistema Integral de Gestión de Clientes, Servicios y
 #Reservas
