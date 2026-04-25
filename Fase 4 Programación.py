@@ -62,36 +62,45 @@
 class Cliente():
     # Constructor de la clase Cliente que inicializa los atributos del cliente
     def __init__(self, documento, nombre, telefono):
-        self.documentoCliente = documento
-        self.nombreCliente = nombre
-        self.telefonoCliente = telefono
+        self.__documentoCliente = documento
+        self.__nombreCliente = nombre
+        self.__telefonoCliente = telefono
     # Métodos getter y setter para acceder y modificar los atributos del cliente desde fuera de la clase
     @property
     def documento(self):
-        return self.documentoCliente
+        return self.__documentoCliente
     
     @property
     def nombre(self):
-        return self.nombreCliente
+        return self.__nombreCliente
     
     @property
     def telefono(self):
-        return self.telefonoCliente
+        return self.__telefonoCliente
     
     @documento.setter
     def documento(self, documento):
-        self.documentoCliente = documento  
+        self.__documentoCliente = documento  
     
     @nombre.setter
     def nombre(self, nombre):
-        self.nombreCliente = nombre
+        self.__nombreCliente = nombre
     
     @telefono.setter
     def telefono(self, telefono):
-        self.telefonoCliente = telefono
+        self.__telefonoCliente = telefono
 
 # Valores de prueba 
 cliente1 = Cliente("123456789", "Juan Perez", "555-1234")
-print(cliente1.documento)  # Imprime: 123456789
+print(f"Documento: {cliente1.documento}")  # Imprime: 123456789
+print(f"Nombre: {cliente1.nombre}")  # Imprime: Juan Perez
+print(f"Teléfono: {cliente1.telefono}")  # Imprime: 555-1234
+# Ejemplo de modificación de un atributo utilizando el setter
 cliente1.documento = "987654321"
-print(cliente1.documento)  # Imprime: 987654321
+print(f"Documento modificado: {cliente1.documento}")  # Imprime: 987654321
+# No es posible acceder directamente a los atributos privados desde fuera de la clase
+# Demostración del manejo de excepción de atributo
+try:
+    print(cliente1.__documentoCliente) # Se intenta acceder a un atributo privado directamente
+except AttributeError:
+    print(f"Error de atributo: El atributo no existe o no es accesible.") # Imprime el mensaje de error de atributo. También es necesario manejar la excepción y registrarlo en el archivo de logs a futuro
