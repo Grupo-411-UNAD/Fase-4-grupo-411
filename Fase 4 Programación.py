@@ -57,3 +57,41 @@
 #demostrando la correcta aplicación de la programación orientada a
 #objetos y el manejo avanzado de excepciones en un entorno sin base de
 #datos.
+
+# Clase cliente que encapsula los datos personales de un cliente
+class Cliente():
+    # Constructor de la clase Cliente que inicializa los atributos del cliente
+    def __init__(self, documento, nombre, telefono):
+        self.documentoCliente = documento
+        self.nombreCliente = nombre
+        self.telefonoCliente = telefono
+    # Métodos getter y setter para acceder y modificar los atributos del cliente desde fuera de la clase
+    @property
+    def documento(self):
+        return self.documentoCliente
+    
+    @property
+    def nombre(self):
+        return self.nombreCliente
+    
+    @property
+    def telefono(self):
+        return self.telefonoCliente
+    
+    @documento.setter
+    def documento(self, documento):
+        self.documentoCliente = documento  
+    
+    @nombre.setter
+    def nombre(self, nombre):
+        self.nombreCliente = nombre
+    
+    @telefono.setter
+    def telefono(self, telefono):
+        self.telefonoCliente = telefono
+
+# Valores de prueba 
+cliente1 = Cliente("123456789", "Juan Perez", "555-1234")
+print(cliente1.documento)  # Imprime: 123456789
+cliente1.documento = "987654321"
+print(cliente1.documento)  # Imprime: 987654321
