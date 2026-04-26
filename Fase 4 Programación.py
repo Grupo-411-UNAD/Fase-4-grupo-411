@@ -90,7 +90,7 @@ class Cliente():
     def telefono(self, telefono):
         self.__telefonoCliente = telefono
         
-if validar_cliente(cliente):
+f validar_cliente(cliente):
     try:
         if not cliente.documento.isdigit():
             raise ClienteError("Documento inválido")
