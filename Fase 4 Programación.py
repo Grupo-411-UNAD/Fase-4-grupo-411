@@ -90,7 +90,7 @@ class Cliente():
     def telefono(self, telefono):
         self.__telefonoCliente = telefono
         
-ef validar_cliente(cliente):
+if validar_cliente(cliente):
     try:
         if not cliente.documento.isdigit():
             raise ClienteError("Documento inválido")
@@ -127,14 +127,14 @@ class ReservaSala(Servicio):
         costo = self.horas * 50000
         return costo - (costo * descuento)
 
-  def descripcion(self):
+    def descripcion(self):
       return f"sala por{self.horas} horas"
 
-class AlquilerEquipo(servicio):
-    def_init_(self, dias):
-    super()._init_(Alquiler de Equipo)
-    if dias <=0:
-        raise ServicioError("Días Inválidos")
+class AlquilerEquipo(Servicio):
+    def __init__(self, dias):
+        super().__init__("Alquiler de Equipo")
+        if dias <= 0:
+            raise ServicioError("Días inválidos")
         self.dias = dias
 
     def calcular_costo(self, impuesto=0):
