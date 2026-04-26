@@ -89,7 +89,60 @@ class Cliente():
     @telefono.setter
     def telefono(self, telefono):
         self.__telefonoCliente = telefono
+        
+ef validar_cliente(cliente):
+    try:
+        if not cliente.documento.isdigit():
+            raise ClienteError("Documento inválido")
+        if len(cliente.nombre) < 3:
+            raise ClienteError("Nombre inválido")
+        if len(cliente.telefono) < 7:
+            raise ClienteError("Teléfono inválido")
+    except Exception as e:
+        logging.error(f"Error en validación de cliente: {e}")
+        raise
 
+class Servicio(ABC):
+    def __init__(self, nombre):
+        self.nombre = nombre
+
+    @abstractmethod
+    def calcular_costo(self, *args):
+        pass
+
+    @abstractmethod
+    def descripcion(self):
+        pass
+
+
+#  SERVICIOS 
+class ReservaSala(Servicio):
+    def __init__(self, horas):
+        super().__init__("Reserva de Sala")
+        if horas <= 0:
+            raise ServicioError("Horas inválidas")
+        self.horas = horas
+
+    def calcular_costo(self, descuento=0):
+        costo = self.horas * 50000
+        return costo - (costo * descuento)
+
+  def descripcion(self):
+      return f"sala por{self.horas} horas"
+
+class AlquilerEquipo(servicio):
+    def_init_(self, dias):
+    super()._init_(Alquiler de Equipo)
+    if dias <=0:
+        raise ServicioError("Días Inválidos")
+        self.dias = dias
+
+    def calcular_costo(self, impuesto=0):
+        costo = self.dias * 30000
+        return costo + (costo * impuesto)
+
+    def descripcion(self):
+        return f"Equipo por {self.dias} días"
 # Valores de prueba 
 cliente1 = Cliente("123456789", "Juan Perez", "555-1234")
 print(f"Documento: {cliente1.documento}")  # Imprime: 123456789
