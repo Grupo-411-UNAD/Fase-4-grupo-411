@@ -90,7 +90,7 @@ class Cliente():
     def telefono(self, telefono):
         self.__telefonoCliente = telefono
         
-f validar_cliente(cliente):
+if validar_cliente(cliente):
     try:
         if not cliente.documento.isdigit():
             raise ClienteError("Documento inválido")
@@ -157,3 +157,5 @@ try:
     print(cliente1.__documentoCliente) # Se intenta acceder a un atributo privado directamente
 except AttributeError:
     print(f"Error de atributo: El atributo no existe o no es accesible.") # Imprime el mensaje de error de atributo. También es necesario manejar la excepción y registrarlo en el archivo de logs a futuro
+
+#Cordial saludo compañero esto es un aviso para los que vallan actualisando el codigo tengan en cuneta siempre realisar atualizaciones de su local para complementar su codigo con lo de los dems compañeros
