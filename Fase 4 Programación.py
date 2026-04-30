@@ -158,7 +158,13 @@ try:
 except AttributeError:
     print(f"Error de atributo: El atributo no existe o no es accesible.") # Imprime el mensaje de error de atributo. También es necesario manejar la excepción y registrarlo en el archivo de logs a futuro
 
-#Parte de Juan Pablo
+# Parte de Juan Pablo
+
+import logging
+
+logging.basicConfig(filename="logs.txt", level=logging.ERROR)
+
+
 class reserva:
     def __init__(self, cliente, servicio, duracion):
         try:
