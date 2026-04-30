@@ -202,3 +202,5 @@ class reserva:
             return "no se pudo mostrar"
 
 
+#He analizado el codigo en VS y aparecen errores en amarillo verifiquen lo que hemos hecho, hago más???
+
