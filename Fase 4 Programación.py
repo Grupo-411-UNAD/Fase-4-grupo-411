@@ -171,11 +171,6 @@ except AttributeError:
 
 # Parte de Juan Pablo
 
-import logging
-
-logging.basicConfig(filename="logs.txt", level=logging.ERROR)
-
-
 class reserva:
     def __init__(self, cliente, servicio, duracion):
         try:
