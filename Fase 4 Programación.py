@@ -125,7 +125,8 @@ class Servicio(ABC):
         pass
 
 
-#  SERVICIOS 
+#  SERVICIOS
+# se crean clases derivadas de la clase abstracta Servicio para representar servicios específicos que ofrece la empresa, implementando los métodos abstractos para calcular costos y describir el servicio, además de incluir validaciones específicas para cada tipo de servicio 
 class ReservaSala(Servicio):
     def __init__(self, horas):
         super().__init__("Reserva de Sala")
@@ -214,3 +215,17 @@ class reserva:
 
 #He analizado el codigo en VS y aparecen errores en amarillo verifiquen lo que hemos hecho, hago más???
 
+#Creacion del clase de servisio (servisio_al_cliente )
+class ServicioAlCliente(Servicio):
+    def __init__(self, nombre, costo_fijo):
+        super().__init__(nombre)
+        if costo_fijo < 0:
+            raise ServicioError("Costo fijo inválido")
+        self.costo_fijo = costo_fijo
+
+    def calcular_costo(self, *args):
+        return self.costo_fijo
+
+    def descripcion(self):
+        return f"Servicio al cliente: {self.nombre}"
+    
