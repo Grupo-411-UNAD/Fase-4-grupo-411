@@ -170,49 +170,10 @@ except AttributeError:
     print(f"Error de atributo: El atributo no existe o no es accesible.") # Imprime el mensaje de error de atributo. También es necesario manejar la excepción y registrarlo en el archivo de logs a futuro
 
 # Parte de Juan Pablo
-
-class reserva:
-    def __init__(self, cliente, servicio, duracion):
-        try:
-            if duracion <= 0:
-                raise Exception("duracion mala")
-
-            self.cliente = cliente
-            self.servicio = servicio
-            self.duracion = duracion
-            self.estado = "pendiente"
-
-        except Exception as e:
-            logging.error("error en reserva " + str(e))
-            print("error creando reserva")
-
-    def confirmar(self):
-        self.estado = "confirmada"
-
-    def cancelar(self):
-        self.estado = "cancelada"
-
-    def calcular_total(self):
-        try:
-            return self.servicio.calcular_costo()
-        except Exception as e:
-            logging.error("error calculo " + str(e))
-            print("error en calculo")
-            return 0
-
-    def mostrar(self):
-        try:
-            return self.cliente.nombre + " - " + self.servicio.descripcion() + " - " + self.estado
-        except Exception as e:
-            logging.error("error mostrando " + str(e))
-            return "no se pudo mostrar"
-
 # ahora paso a trabajar la parte de reservas con manejo de errores y validaciones
 
 import logging
-
 logging.basicConfig(filename="logs.txt", level=logging.ERROR)
-
 
 # excepciones personalizadas
 class ReservaError(Exception):
@@ -260,8 +221,6 @@ class reserva:
         except Exception as e:
             logging.error("error mostrando " + str(e))
             return "no se pudo mostrar"
-
-
 #He analizado el codigo en VS y aparecen errores en amarillo verifiquen lo que hemos hecho, hago más???
 
 #Creacion del clase de servisio (servisio_al_cliente )
