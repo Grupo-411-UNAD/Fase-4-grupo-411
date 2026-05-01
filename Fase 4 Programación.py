@@ -90,7 +90,14 @@ class Cliente():
     def telefono(self, telefono):
         self.__telefonoCliente = telefono
         
-if validar_cliente(cliente):
+#deinicon de servicio error para manejar errores específicos relacionados con los servicios ofrecidos por la empresa
+class ServicioError(Exception):
+    pass
+
+#definicion de excepciones personalizadas para el manejo de errores específicos del sistema
+class ClienteError(Exception):
+    pass
+def validar_cliente(cliente):
     try:
         if not cliente.documento.isdigit():
             raise ClienteError("Documento inválido")
