@@ -109,6 +109,9 @@ def validar_cliente(cliente):
         logging.error(f"Error en validación de cliente: {e}")
         raise
 
+#creacion de clase astrapta para representar servicios generales del sistema, con métodos abstractos que deben ser implementados por las clases derivadas
+from abc import ABC, abstractmethod
+
 class Servicio(ABC):
     def __init__(self, nombre):
         self.nombre = nombre
