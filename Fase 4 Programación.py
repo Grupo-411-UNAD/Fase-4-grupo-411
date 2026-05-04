@@ -237,6 +237,7 @@ class ServicioAlCliente(Servicio):
     def descripcion(self):
         return f"Servicio al cliente: {self.nombre}"
     
+<<<<<<< HEAD
 #Parte 2 de Juan Pablo
 #Pasaré a hacer la simulación el sistema (10 casos)
 
@@ -335,3 +336,5 @@ except:
 
 print("FIN SIMULACION")
 
+=======
+>>>>>>> 2bd37d97f763365db5fc1ff0d7780e58680f6d45
