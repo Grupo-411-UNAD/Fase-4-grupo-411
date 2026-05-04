@@ -336,3 +336,4 @@ except:
 
 print("FIN SIMULACION")
 
+#Dividan sus partes me aparece que hice todo yo xd
