@@ -347,3 +347,5 @@ print("FIN SIMULACION")
 # Comprendo que esto le pude pasar a cualquiera por lo que es importante estar anteto a los cambios que se hacen en el codigo y revisar los commits para asegurarse de que se esta añadiendo lo nuevo y no se esta remplazando lo anterior sin necesidad de cambio real o modificasion, ademas de mantener una buena comunicacion con el equipo para evitar este tipo de confusiones.
 #los invito a realisar comentarios de este tipo en el foro
 #Recalco el dia antes de la entrega yo personalmente borrare los comentarios inecesarios que no aporten al codigo u a su desarrollo ademas de avisar y mandar evidencia de la modifacon al foro como contacia de que no se borro nada que fuera nesesario.
+
+#Cosas para mejorar o añadir guia para quienes no tienen mucha partisioacion : se detecta repeticion de exepciones, hay que coregir el implementado de la clase reserve, implemetacion de execiones mas un poquioto mas avansadas, mejorar la validasion de procesos dentro de la clase cliente (para aquellos cue no han partisipado mucho)
