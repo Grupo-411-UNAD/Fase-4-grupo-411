@@ -336,4 +336,14 @@ except:
 
 print("FIN SIMULACION")
 
-#Dividan sus partes me aparece que hice todo yo xd
+#Dividan sus partes me aparece que hice todo yo xd -----> Con todo respeto compañero la unicaforma que ocura eso es que remplases lo anterior mente escrito o copies y pegues el codigo de forma externa a las actualizaciones de los commits de otro archivo o proyecto y lo subas a git en ves de solo añadir lo nuevo.
+#Si guiente a eso compañero no hay necesidad completa de estar escribiendo el nombre ya que como dice la guia de apredisaje y la rubrica mediante el uso de los commit se indica que deben de ir comentados el primero con el nombre del partisipante y los demas con las modifacsiones areglos o exepciones que se hicieron en el codigo, lo importante es que el codigo este completo y funcional, y que se hayan cumplido los requisitos del ejercicio.
+#Siguente a eso el repositorio git hay un partado que informa la partisipasion genetal y espesifiaca de todos los partispnates al igual que la cantidad de commit y lineas de codigo escritas o modicadas propias o de otros compañeros
+#Ademas el comentar o realisar charlas en el codigo es una mala practica para eso existe el foro de dicucion y los medios de comunicasion dispuestos por la unversidad 
+#Los mensaje presentes seran borrados antes de la entrega y solo se dejaran los comentarios que comenten el funcionamineto o guia del sistema fometando un codigo estruturalmente limpio de comnetarios inecesarios
+# Si ya tienen una parte buena en partisipacion agradesco esperes a que los copañeros con menor aporte agregen su parte.
+#Actual mente el codigo tiene pocos puntos para añadir por lo que dejareunas indicasiones de lo que aun falta para quieres aun no han partisipado mucho
+#Ademas de comentar en el documento trabajo el error de copiar y pegar que te pudo aver pasado y por lo cual puede parecer que reaalisaste todo, como inidacion te recominedo el solo modifacar aquello con errores o malas practicas y mantener tus añadidos comentados en el commit 
+# Comprendo que esto le pude pasar a cualquiera por lo que es importante estar anteto a los cambios que se hacen en el codigo y revisar los commits para asegurarse de que se esta añadiendo lo nuevo y no se esta remplazando lo anterior sin necesidad de cambio real o modificasion, ademas de mantener una buena comunicacion con el equipo para evitar este tipo de confusiones.
+#los invito a realisar comentarios de este tipo en el foro
+#Recalco el dia antes de la entrega yo personalmente borrare los comentarios inecesarios que no aporten al codigo u a su desarrollo ademas de avisar y mandar evidencia de la modifacon al foro como contacia de que no se borro nada que fuera nesesario.
