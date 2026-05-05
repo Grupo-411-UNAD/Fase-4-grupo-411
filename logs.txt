@@ -1,0 +1,8 @@
+ERROR:root:Error en validación de cliente: Nombre inválido
+ERROR:root:error en reserva duracion mala
+ERROR:root:Error en validación de cliente: Nombre inválido
+ERROR:root:error en reserva duracion mala
+ERROR:root:Error en validación de cliente: Documento inválido
+ERROR:root:Error en validación de cliente: Nombre inválido
+ERROR:root:error en reserva duracion mala
+ERROR:root:Error en validación de cliente: Documento inválido
