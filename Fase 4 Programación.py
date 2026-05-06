@@ -237,6 +237,7 @@ class ServicioAlCliente(Servicio):
     def descripcion(self):
         return f"Servicio al cliente: {self.nombre}"
     
+<<<<<<< HEAD
 
 #Parte 2 de Juan Pablo
 #Pasaré a hacer la simulación el sistema (10 casos)
@@ -349,3 +350,5 @@ print("FIN SIMULACION")
 #Recalco el dia antes de la entrega yo personalmente borrare los comentarios inecesarios que no aporten al codigo u a su desarrollo ademas de avisar y mandar evidencia de la modifacon al foro como contacia de que no se borro nada que fuera nesesario.
 
 #Cosas para mejorar o añadir guia para quienes no tienen mucha partisioacion : se detecta repeticion de exepciones, hay que coregir el implementado de la clase reserve, implemetacion de execiones mas un poquioto mas avansadas, mejorar la validasion de procesos dentro de la clase cliente (para aquellos cue no han partisipado mucho)
+=======
+>>>>>>> c116f6ca2651de68d352655b7168a98b86abc94f
