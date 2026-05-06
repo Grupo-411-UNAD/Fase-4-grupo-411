@@ -2,39 +2,45 @@
 # así como para el manejo de excepciones y la interacción con las clases Cliente y Servicio.
 import excepciones
 
+Reservas_Creadas = [] # Lista global para almacenar las reservas creadas
+
+# ============================================================
+# CLASE RESERVA
+# ============================================================
+
 class Reserva():
     def __init__(self, cliente, servicio, duracion):
         try:
             if duracion <= 0:
-                raise excepciones.ReservaError("duracion mala")
+                raise excepciones.ReservaError("La duración de la reserva debe ser mayor que cero.")
 
             self.cliente = cliente
             self.servicio = servicio
             self.duracion = duracion
-            self.estado = "pendiente"
-
+            self.estado = "Pendiente"
+            Reservas_Creadas.append(self)
         except Exception as e:
-            excepciones.logging.error("error en reserva " + str(e))
-            print("error creando reserva")
+            excepciones.logging.error("Error en reserva " + str(e))
+            print("Error creando reserva")
 
     def confirmar(self):
-        self.estado = "confirmada"
+        self.estado = "Confirmada"
 
     def cancelar(self):
-        self.estado = "cancelada"
+        self.estado = "Cancelada"
 
     def calcular_total(self):
         try:
             return self.servicio.calcular_costo()
         except Exception as e:
-            excepciones.logging.error("error calculo " + str(e))
-            print("error en calculo")
+            excepciones.logging.error("Error en cálculo " + str(e))
+            print("Error en cálculo")
             return 0
 
     def mostrar(self):
         try:
             return self.cliente.nombre + " - " + self.servicio.descripcion() + " - " + self.estado
         except Exception as e:
-            excepciones.logging.error("error mostrando " + str(e))
-            return "no se pudo mostrar"
-#He analizado el codigo en VS y aparecen errores en amarillo verifiquen lo que hemos hecho, hago más???
+            excepciones.logging.error("Error al mostrar " + str(e))
+            print("Error al mostrar datos de reserva")
+            return "No se pudo mostrar"

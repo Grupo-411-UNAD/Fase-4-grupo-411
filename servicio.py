@@ -3,7 +3,10 @@
 import cliente
 import excepciones
 
-#Clase abstracta Servicio, con métodos abstractos que deben ser implementados por las clases derivadas
+# ============================================================
+# CLASE ABSTRACTA SERVICIO
+# ============================================================
+
 from abc import ABC, abstractmethod
 
 class Servicio(ABC):
@@ -20,27 +23,29 @@ class Servicio(ABC):
         # Método abstracto para describir el servicio.
         pass
 
-#  SERVICIOS 
-# Se crean clases derivadas de la clase abstracta Servicio para representar servicios específicos que ofrece la empresa.
+# ============================================================
+# CLASES DERIVADAS DE SERVICIO
+# ============================================================
+
 class ReservaSala(Servicio):
-    def __init__(self, horas):
-        super().__init__("Reserva de Sala")
-        if horas <= 0:
-            raise excepciones.ServicioError("Horas inválidas")
-        self.horas = horas
+    def __init__(self, tiempo):
+        super().__init__("Reserva de Sala") # Se llama al constructor de la clase base para establecer el nombre del servicio.
+        if tiempo <= 0:
+            raise excepciones.ServicioError("La tiempo de duracion de la reserva debe ser mayor que cero.")
+        self.tiempo = tiempo
 
     def calcular_costo(self, descuento=0):
-        costo = self.horas * 50000
+        costo = self.tiempo * 50000
         return costo - (costo * descuento)
 
     def descripcion(self):
-      return f"sala por{self.horas} horas"
+      return f"Sala por {self.tiempo} horas"
 
 class AlquilerEquipo(Servicio):
     def __init__(self, dias):
         super().__init__("Alquiler de Equipo")
         if dias <= 0:
-            raise excepciones.ServicioError("Días inválidos")
+            raise excepciones.ServicioError("La cantidad de días para el alquiler debe ser mayor que cero.")
         self.dias = dias
 
     def calcular_costo(self, impuesto=0):

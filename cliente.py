@@ -9,39 +9,36 @@ class Cliente():
         self.__telefonoCliente = telefono
         
     # Métodos getter y setter para acceder y modificar los atributos del cliente desde fuera de la clase
+    
+    # documento
     @property
     def documento(self):
         return self.__documentoCliente
-    
+
+    @documento.setter
+    def documento(self, documento):
+        if not documento.isdigit():
+            raise excepciones.ClienteError("Documento inválido")
+        self.__documentoCliente = documento
+
+    # nombre
     @property
     def nombre(self):
         return self.__nombreCliente
-    
+
+    @nombre.setter
+    def nombre(self, nombre):
+        if not nombre.replace(" ", "").isalpha():
+            raise excepciones.ClienteError("El nombre solo debe contener letras")
+        self.__nombreCliente = nombre
+
+    # teléfono
     @property
     def telefono(self):
         return self.__telefonoCliente
-    
-    @documento.setter
-    def documento(self, documento):
-        self.__documentoCliente = documento  
-    
-    @nombre.setter
-    def nombre(self, nombre):
-        self.__nombreCliente = nombre
-    
+
     @telefono.setter
     def telefono(self, telefono):
+        if not telefono.isdigit() or len(telefono) < 7:
+            raise excepciones.ClienteError("Teléfono inválido")
         self.__telefonoCliente = telefono
-        
-    def validar_cliente(cliente):
-        try:
-            if not cliente.documento.isdigit():
-                raise excepciones.ClienteError("Documento inválido")
-            if len(cliente.nombre) < 3:
-                raise excepciones.ClienteError("Nombre inválido")
-            if len(cliente.telefono) < 7:
-                raise excepciones.ClienteError("Teléfono inválido")
-        except Exception as e:
-            excepciones.logging.error(f"Error en validación de cliente: {e}")
-            raise excepciones.ClienteError("Error en validación de cliente")
-
