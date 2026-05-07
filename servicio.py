@@ -1,3 +1,8 @@
+from abc import ABC, abstractmethod
+
+#se importa la clase entidad para que cliente pueda heredar de ella
+from entity import Entidad
+
 # Importación de módulos necesarios para la implementación de la clase Servicio y sus derivados, 
 # así como para el manejo de excepciones y la interacción con la clase Cliente.
 import cliente
@@ -7,10 +12,9 @@ import excepciones
 # CLASE ABSTRACTA SERVICIO
 # ============================================================
 
-from abc import ABC, abstractmethod
-
-class Servicio(ABC):
+class Servicio(Entidad,ABC):
     def __init__(self, nombre):
+        super().__init__()
         self.nombre = nombre
 
     @abstractmethod
