@@ -1,9 +1,14 @@
+#se importa la clase entidad para que cliente pueda heredar de ella
+from entity import Entidad
+
 # Importación de módulos necesarios para la implementación de la clase Cliente, así como para el manejo de excepciones
 import excepciones
 
 # Clase cliente que encapsula los datos personales de un cliente
-class Cliente():
+
+class Cliente(Entidad):
     def __init__(self, nombre, documento,telefono):
+        super().__init__()
         self.__nombreCliente = nombre
         self.__documentoCliente = documento
         self.__telefonoCliente = telefono
@@ -13,7 +18,6 @@ class Cliente():
 
     __repr__ = __str__
 
-        
     # Métodos getter y setter para acceder y modificar los atributos del cliente desde fuera de la clase
     
     # nombre
