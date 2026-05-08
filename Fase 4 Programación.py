@@ -66,37 +66,54 @@ class Cliente():
         self.__nombreCliente = nombre
         self.__telefonoCliente = telefono
     # Métodos getter y setter para acceder y modificar los atributos del cliente desde fuera de la clase
-    @property
+   @property
     def documento(self):
         return self.__documentoCliente
-    
+
+    @documento.setter
+    def documento(self, documento):
+
+        if not documento.isdigit():
+            raise ClienteError("El documento debe contener solo números")
+
+        if len(documento) < 5:
+            raise ClienteError("Documento demasiado corto")
+
+        self.__documentoCliente = documento
+
     @property
     def nombre(self):
         return self.__nombreCliente
-    
+
+    @nombre.setter
+    def nombre(self, nombre):
+
+        if len(nombre.strip()) < 3:
+            raise ClienteError("Nombre inválido")
+
+        if not nombre.replace(" ", "").isalpha():
+            raise ClienteError("El nombre solo debe contener letras")
+
+        self.__nombreCliente = nombre
+
     @property
     def telefono(self):
         return self.__telefonoCliente
-    
-    @documento.setter
-    def documento(self, documento):
-        self.__documentoCliente = documento  
-    
-    @nombre.setter
-    def nombre(self, nombre):
-        self.__nombreCliente = nombre
-    
-    @telefono.setter
-    def telefono(self, telefono):
-        self.__telefonoCliente = telefono
-        
-#deinicon de servicio error para manejar errores específicos relacionados con los servicios ofrecidos por la empresa
-class ServicioError(Exception):
-    pass
 
-#definicion de excepciones personalizadas para el manejo de errores específicos del sistema
-class ClienteError(Exception):
-    pass
+   @telefono.setter
+   def telefono (self, telefono):
+    
+    telefono_limpio= telefono.replace("-", "")
+
+    if not telefono_limpio.isdigit():
+            raise ClienteError("Teléfono inválido")
+        
+        if len(telefono_limpio) < 7:
+            raise ClienteError("Número telefonico muy corto")
+
+            self.__telefonoCliente = telefono
+
+        
 def validar_cliente(cliente):
     try:
         if not cliente.documento.isdigit():
@@ -128,11 +145,15 @@ class Servicio(ABC):
 #  SERVICIOS
 # se crean clases derivadas de la clase abstracta Servicio para representar servicios específicos que ofrece la empresa, implementando los métodos abstractos para calcular costos y describir el servicio, además de incluir validaciones específicas para cada tipo de servicio 
 class ReservaSala(Servicio):
-    def __init__(self, horas):
+    def __init__(self, horas, disponible= True):
+         if not servicio.disponible:
+            raise ReservaError("Servicio no disponible")
         super().__init__("Reserva de Sala")
         if horas <= 0:
             raise ServicioError("Horas inválidas")
         self.horas = horas
+        self.disponible = disponible
+   
 
     def calcular_costo(self, descuento=0):
         costo = self.horas * 50000
@@ -169,11 +190,10 @@ try:
 except AttributeError:
     print(f"Error de atributo: El atributo no existe o no es accesible.") # Imprime el mensaje de error de atributo. También es necesario manejar la excepción y registrarlo en el archivo de logs a futuro
 
-# Parte de Juan Pablo
-# ahora paso a trabajar la parte de reservas con manejo de errores y validaciones
 
 import logging
-logging.basicConfig(filename="logs.txt", level=logging.ERROR)
+
+logging.basicConfig(filename="logs.txt", level=logging.INFO,format="%(asctime)s - %(levelname)s - %(message)s")
 
 # excepciones personalizadas
 class ReservaError(Exception):
@@ -186,43 +206,87 @@ class ServicioError(Exception):
     pass
 
 
-class reserva:
+class Reserva:
+
     def __init__(self, cliente, servicio, duracion):
+
         try:
+
+            if not isinstance(cliente, Cliente):
+                raise ReservaError("Cliente inválido")
+
+            if not isinstance(servicio, Servicio):
+                raise ReservaError("Servicio inválido")
+
             if duracion <= 0:
-                raise ReservaError("duracion mala")
+                raise ReservaError("La duración debe ser mayor a cero")
 
             self.cliente = cliente
             self.servicio = servicio
             self.duracion = duracion
             self.estado = "pendiente"
 
-        except Exception as e:
-            logging.error("error en reserva " + str(e))
-            print("error creando reserva")
+            logging.info("Reserva creada correctamente")
+
+        except ReservaError as e:
+            logging.error(f"Error en reserva: {e}")
+            raise
+
+        finally:
+            logging.info("Proceso de creación de reserva finalizado")
 
     def confirmar(self):
-        self.estado = "confirmada"
+
+        try:
+
+            if self.estado == "cancelada":
+                raise ReservaError("No se puede confirmar una reserva cancelada")
+
+            self.estado = "confirmada"
+
+        except ReservaError as e:
+            logging.error(f"Error confirmando reserva: {e}")
+            raise
 
     def cancelar(self):
-        self.estado = "cancelada"
+
+        try:
+
+            if self.estado == "confirmada":
+                raise ReservaError("No se puede cancelar una reserva confirmada")
+
+            self.estado = "cancelada"
+
+        except ReservaError as e:
+            logging.error(f"Error cancelando reserva: {e}")
+            raise
 
     def calcular_total(self):
+
         try:
-            return self.servicio.calcular_costo()
+
+            total = self.servicio.calcular_costo()
+
+            if total < 0:
+                raise ReservaError("Total inconsistente")
+
+            return total
+
         except Exception as e:
-            logging.error("error calculo " + str(e))
-            print("error en calculo")
-            return 0
+
+            logging.error(f"Error calculando total: {e}")
+
+            raise ReservaError(
+                "No fue posible calcular el total"
+            ) from e
 
     def mostrar(self):
-        try:
-            return self.cliente.nombre + " - " + self.servicio.descripcion() + " - " + self.estado
-        except Exception as e:
-            logging.error("error mostrando " + str(e))
-            return "no se pudo mostrar"
-#He analizado el codigo en VS y aparecen errores en amarillo verifiquen lo que hemos hecho, hago más???
 
+        return (
+            f"{self.cliente.nombre} | "
+            f"{self.servicio.descripcion()} | "
+            f"{self.estado}")
+            
 #Creacion del clase de servisio (servisio_al_cliente )
 class ServicioAlCliente(Servicio):
     def __init__(self, nombre, costo_fijo):
@@ -237,11 +301,6 @@ class ServicioAlCliente(Servicio):
     def descripcion(self):
         return f"Servicio al cliente: {self.nombre}"
     
-<<<<<<< HEAD
-
-#Parte 2 de Juan Pablo
-#Pasaré a hacer la simulación el sistema (10 casos)
-
 clientes = []
 servicios = []
 reservas = []
@@ -269,10 +328,14 @@ except:
 # Caso 3: servicio valido
 try:
     s1 = ReservaSala(2)
-    servicios.append(s1)
-    print("caso 3 ok")
-except:
-    print("caso 3 error")
+    
+except ServicioError as e:
+
+      logging.error(f"Error creando servicio: {e}")
+
+  else:
+      servicios.append(s1)
+    print("Servicio agregado correctamente")
 
 # Caso 4: servicio invalido
 try:
@@ -284,16 +347,19 @@ except:
 
 # Caso 5: reserva valida
 try:
-    r1 = reserva(c1, s1, 2)
-    r1.confirmar()
-    reservas.append(r1)
-    print("caso 5 ok:", r1.mostrar())
-except:
-    print("caso 5 error")
+    r1 = Reserva(c1, s1, 2)
+   
+except ReservaError as e:
+
+    print(e)
+
+finally:  
+    
+     print("Proceso de reserva terminado")
 
 # Caso 6: reserva con duracion mala
 try:
-    r2 = reserva(c1, s1, -1)
+    r2 = Reserva(c1, s1, -1)
     reservas.append(r2)
     print("caso 6 ok")
 except:
@@ -308,7 +374,7 @@ except:
 
 # CASO 8: reserva con servicio equipo
 try:
-    r3 = reserva(c1, s3, 3)
+    r3 = Reserva(c1, s3, 3)
     r3.confirmar()
     reservas.append(r3)
     print("caso 8 ok:", r3.mostrar())
@@ -328,7 +394,7 @@ except:
 try:
     s4 = ServicioAlCliente("asesoria", 100000)
     servicios.append(s4)
-    r4 = reserva(c1, s4, 1)
+    r4 = Reserva(c1, s4, 1)
     r4.confirmar()
     reservas.append(r4)
     print("caso 10 ok:", r4.mostrar())
