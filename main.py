@@ -85,7 +85,7 @@ def menu():
             # Manejo de error
             print(f"Error: {e}")
             excepciones.registrar_log(f"Error de valor: {e}")
-
+#se captura cualquier excepción de tipo ValueError que pueda ocurrir durante la selección de la opción del menú, se registra el error en el archivo de logs y se muestra un mensaje de error al usuario, luego se regresa al menú para que el usuario pueda intentar nuevamente
         else:
             # Flujo normal
             if opcion == 1:
@@ -98,7 +98,7 @@ def menu():
                 except excepciones.ClienteError as e:
                     print(f"Error al registrar cliente: {e}")
                     excepciones.registrar_log(f"Error al registrar cliente: {e}")
-
+#se captura cualquier excepción que pueda ocurrir durante el proceso de registro del cliente, se registra el error en el archivo de logs y se muestra un mensaje de error al usuario
             elif opcion == 2:
                 try:
                     servicio = Servicio.crear_servicio()
@@ -111,7 +111,7 @@ def menu():
                 except ValueError as e:
                     print(f"Error al crear servicio: {e}")
                     excepciones.registrar_log(f"Error al crear servicio: {e}")
-
+#se captura cualquier excepción que pueda ocurrir durante el proceso de creación del servicio, se registra el error en el archivo de logs y se muestra un mensaje de error al usuario
             elif opcion == 3:
                 try:
                     if len(clientes) == 0:
@@ -141,7 +141,7 @@ def menu():
                 except excepciones.ReservaError as e:
                     print(f"Error al crear reserva: {e}")
                     excepciones.registrar_log(f"Error al crear reserva: {e}")
-
+#se captura cualquier excepción que pueda ocurrir durante el proceso de creación de la reserva, se registra el error en el archivo de logs y se muestra un mensaje de error al usuario
             elif opcion == 4:
                 try:
                     if len(reservas) == 0:
@@ -153,7 +153,7 @@ def menu():
                 except Exception as e:
                     excepciones.registrar_log(f"Error mostrando reservas: {e}")
                     print("Error al mostrar reservas")
-                    
+ #se captura cualquier excepción que pueda ocurrir al mostrar las reservas, se registra el error en el archivo de logs y se muestra un mensaje de error al usuario                   
             elif opcion == 5:
                 try:
                     if len(reservas) == 0:

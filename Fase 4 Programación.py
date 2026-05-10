@@ -1,12 +1,17 @@
+#importado asbstractmethod y ABC para crear clases abstractas y métodos abstractos
+from abc import ABC, abstractmethod
+
 # Clase cliente que encapsula los datos personales de un cliente
 class Cliente():
     # Constructor de la clase Cliente que inicializa los atributos del cliente
     def __init__(self, documento, nombre, telefono):
-        self.__documentoCliente = documento
-        self.__nombreCliente = nombre
-        self.__telefonoCliente = telefono
+
+        self.documento = documento
+        self.nombre = nombre
+        self.telefono = telefono
+
     # Métodos getter y setter para acceder y modificar los atributos del cliente desde fuera de la clase
-    
+
     @property
     def documento(self):
         return self.__documentoCliente
@@ -53,9 +58,6 @@ class Cliente():
             raise ClienteError("Número telefonico muy corto")
         
         self.__telefonoCliente = telefono
-
-#importado asbstractmethod y ABC para crear clases abstractas y métodos abstractos
-from abc import ABC, abstractmethod
 
 class Servicio(ABC):
     def __init__(self, nombre):
@@ -235,6 +237,7 @@ print ("INICIO DE LA SIMULACIÓN")
 #Caso 1: CLiente Valido
 try:
     c1 = Cliente("123456", "juan", "1234567")
+    #se llama a la función de validación para verificar que el cliente cumple con los requisitos antes de agregarlo a la lista de clientes, si el cliente es válido se agrega a la lista y se imprime un mensaje de éxito, en caso contrario se captura la excepción y se imprime un mensaje de error
     validar_cliente(c1)
     clientes.append(c1)
     print("caso 1 ok")
@@ -244,6 +247,7 @@ except Exception as e:
 # Caso 2: cliente invalido (nombre corto)
 try:
     c2 = Cliente("789456", "jo", "1234567")
+    #se llama a la función de validación para verificar que el cliente cumple con los requisitos antes de agregarlo a la lista de clientes, si el cliente es válido se agrega a la lista y se imprime un mensaje de éxito, en caso contrario se captura la excepción y se imprime un mensaje de error
     validar_cliente(c2)
     clientes.append(c2)
     print("caso 2 ok")
@@ -251,6 +255,7 @@ except:
     print("caso 2 error")
 
 # Caso 3: servicio valido
+#se intenta crear una instancia de ReservaSala con una duración válida, si la creación es exitosa se agrega el servicio a la lista de servicios y se imprime un mensaje de éxito, en caso de que ocurra un error durante la creación del servicio, se captura la excepción y se registra un mensaje de error en el archivo de logs
 try:
     s1 = ReservaSala(2)
     
@@ -316,6 +321,7 @@ except Exception as e:
     print("caso 9 error")
 
 # CASO 10: servicio al cliente
+#se intenta crear una instancia de ServicioAlCliente con un costo fijo válido, si la creación es exitosa se agrega el servicio a la lista de servicios y se imprime un mensaje de éxito, en caso de que ocurra un error durante la creación del servicio, se captura la excepción y se registra un mensaje de error en el archivo de logs
 try:
     s4 = ServicioAlCliente("asesoria", 100000)
     servicios.append(s4)
