@@ -1,10 +1,7 @@
-#Se crea clase Entidad, la cual es la clase padre de todas las entidades 
-#se esporta las herraminetas para la clase abtracta
-from abc import ABC, abstractmethod
-
 # ============================================================
 # CLASE ABSTRACTA DE ENTIDADES
 # ============================================================
+from abc import ABC, abstractmethod
 
 class Entidad(ABC):
     @abstractmethod

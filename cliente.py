@@ -1,11 +1,14 @@
-#se importa la clase entidad para que cliente pueda heredar de ella
+# --------------------------------------------------------------------------------------------------------------------------------------------
+# Importacion de la clase Entidad para que cliente pueda heredar de ella
+# --------------------------------------------------------------------------------------------------------------------------------------------
 from entity import Entidad
-
-# Importación de módulos necesarios para la implementación de la clase Cliente, así como para el manejo de excepciones
+# --------------------------------------------------------------------------------------------------------------------------------------------
+# Importacion de módulos necesarios para la implementación de la clase Cliente, así como para el manejo de excepciones
+# --------------------------------------------------------------------------------------------------------------------------------------------
 import excepciones
-
+# --------------------------------------------------------------------------------------------------------------------------------------------
 # Clase cliente que encapsula los datos personales de un cliente
-
+# --------------------------------------------------------------------------------------------------------------------------------------------
 class Cliente(Entidad):
     def __init__(self, nombre, documento,telefono):
         super().__init__()
@@ -17,8 +20,10 @@ class Cliente(Entidad):
             return f"{self.nombre} - {self.documento} - {self.telefono}"
 
     __repr__ = __str__
-
+    
+    # -----------------------------------------------------------------------------------------------------
     # Métodos getter y setter para acceder y modificar los atributos del cliente desde fuera de la clase
+    # -----------------------------------------------------------------------------------------------------
     
     # nombre
     @property
@@ -29,7 +34,7 @@ class Cliente(Entidad):
     def nombre(self, nombre):
         self.__nombreCliente = nombre
 
-# documento
+    # documento
     @property
     def documento(self):
         return self.__documentoCliente
@@ -47,12 +52,15 @@ class Cliente(Entidad):
     def telefono(self, telefono):
         self.__telefonoCliente = telefono
 
-    def mostrar_datos(self): # Método para mostrar los datos del cliente.
+    # ------------------------------------------------------------------------------------------------------------------------------------------
+    # Método para mostrar los datos del cliente.
+    # ------------------------------------------------------------------------------------------------------------------------------------------
+    def mostrar_datos(self): 
             print(f"\n Cliente: {self.__nombreCliente} | Documento: {self.__documentoCliente} | Teléfono: {self.__telefonoCliente} \n")
             
-    # ============================================================
+    # ============================================================================================================================================
     # FUNCION REGISTRAR CLIENTE
-    # ============================================================
+    # ============================================================================================================================================
     
     @staticmethod
     def registrar_cliente():

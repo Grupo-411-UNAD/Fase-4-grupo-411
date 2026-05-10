@@ -45,27 +45,201 @@ la correcta aplicación de la programación orientada a objetos y el manejo avan
 
 """
 
-# ============================================================
-# FUNCIÓN PRINCIPAL DEL PROGRAMA
-# ============================================================
-
+# =====================================================================================
+# INICIO DEL PROGRAMA PRINCIPAL
+# =====================================================================================
+# -----------------------------------------------------------------------------------
 # Importación de módulos necesarios para la ejecución del programa principal.
+# -----------------------------------------------------------------------------------
 from cliente import Cliente
-from servicio import Servicio
+from servicio import Servicio, ReservaSala, AlquilerEquipo, ServiciosEspeciales
 from reserva import Reserva
 import excepciones
 
+# -----------------------------------------------------------------------------------
 # Listas globales para almacenar clientes, servicios y reservas
-
+# -----------------------------------------------------------------------------------
 clientes = []
 servicios = []
 reservas = []
 
+# =====================================================================================
+# SIMULACIÓN DE USO DEL SISTEMA CON OPERACIONES VÁLIDAS E INVÁLIDAS
+# =====================================================================================
+
+def simular():
+    """
+    Ejecuta 10 simulaciones de uso del sistema con operaciones válidas e inválidas.
+    Cada operación muestra su resultado y registra el evento en el archivo de logs.
+    """
+    sim_clientes = []
+    sim_servicios = []
+    sim_reservas = []
+    separador = "=" * 55
+    print(f"\n{separador}")
+    print("   INICIO DE SIMULACIONES - SOFTWARE FJ")
+    print(separador)
+    excepciones.registrar_log("=== Inicio de simulaciones ===")
+    # ----------------------------------------------------------
+    # SIMULACIÓN 1 — Registro de cliente VÁLIDO
+    # ----------------------------------------------------------
+    print("\n[Sim 1] Registrar cliente válido: Ana García")
+    try:
+        c1 = Cliente("Ana García", "123456789", "3001234567")
+        sim_clientes.append(c1)
+        print(f"  ✔ Cliente registrado: {c1}")
+        excepciones.registrar_log(f"[Sim 1] Cliente registrado: {c1}")
+    except excepciones.ClienteError as e:
+        print(f"  ✘ Error inesperado: {e}")
+        excepciones.registrar_log(f"[Sim 1] Error: {e}")
+    # ----------------------------------------------------------
+    # SIMULACIÓN 2 — Registro de cliente INVÁLIDO (nombre con números)
+    # ----------------------------------------------------------
+    print("\n[Sim 2] Registrar cliente inválido: nombre 'Ana123'")
+    try:
+        nombre = "Ana123"
+        if not nombre.replace(" ", "").isalpha():
+            raise excepciones.ClienteError("El nombre solo debe contener letras")
+        sim_clientes.append(Cliente(nombre, "987654321", "3109876543"))
+    except excepciones.ClienteError as e:
+        print(f"  ✘ Error capturado correctamente: {e}")
+        excepciones.registrar_log(f"[Sim 2] Error esperado: {e}")
+    finally:
+        print("  → Bloque finally: validación de nombre finalizada")
+    # ----------------------------------------------------------
+    # SIMULACIÓN 3 — Registro de cliente VÁLIDO
+    # ----------------------------------------------------------
+    print("\n[Sim 3] Registrar cliente válido: Carlos López")
+    try:
+        c2 = Cliente("Carlos López", "987654321", "3109876543")
+        sim_clientes.append(c2)
+        print(f"  ✔ Cliente registrado: {c2}")
+        excepciones.registrar_log(f"[Sim 3] Cliente registrado: {c2}")
+    except excepciones.ClienteError as e:
+        print(f"  ✘ Error inesperado: {e}")
+        excepciones.registrar_log(f"[Sim 3] Error: {e}")
+    # ----------------------------------------------------------
+    # SIMULACIÓN 4 — Registro de cliente INVÁLIDO (documento empieza en 0)
+    # ----------------------------------------------------------
+    print("\n[Sim 4] Registrar cliente inválido: documento '0123456'")
+    try:
+        documento = "0123456"
+        if not documento.isdigit() or len(documento) < 6 or len(documento) > 12 or documento[0] == '0':
+            raise excepciones.ClienteError("Documento inválido")
+        sim_clientes.append(Cliente("Pedro Ruiz", documento, "3207654321"))
+    except excepciones.ClienteError as e:
+        print(f"  ✘ Error capturado correctamente: {e}")
+        excepciones.registrar_log(f"[Sim 4] Error esperado: {e}")
+    finally:
+        print("  → Bloque finally: validación de documento finalizada")
+    # ----------------------------------------------------------
+    # SIMULACIÓN 5 — Creación de servicio VÁLIDO (ReservaSala)
+    # ----------------------------------------------------------
+    print("\n[Sim 5] Crear servicio válido: Reserva de Sala por 3 horas")
+    try:
+        s1 = ReservaSala(3)
+        sim_servicios.append(s1)
+        print(f"  ✔ Servicio creado: {s1.descripcion()} | Costo: {s1.calcular_costo()} pesos")
+        excepciones.registrar_log(f"[Sim 5] Servicio creado: {s1.descripcion()}")
+    except excepciones.ServicioError as e:
+        print(f"  ✘ Error inesperado: {e}")
+        excepciones.registrar_log(f"[Sim 5] Error: {e}")
+    # ----------------------------------------------------------
+    # SIMULACIÓN 6 — Creación de servicio INVÁLIDO (ReservaSala con 0 horas)
+    # ----------------------------------------------------------
+    print("\n[Sim 6] Crear servicio inválido: Reserva de Sala con 0 horas")
+    try:
+        s_invalido = ReservaSala(0)
+        sim_servicios.append(s_invalido)
+    except excepciones.ServicioError as e:
+        print(f"  ✘ Error capturado correctamente: {e}")
+        excepciones.registrar_log(f"[Sim 6] Error esperado: {e}")
+    finally:
+        print("  → Bloque finally: validación de duración de sala finalizada")
+    # ----------------------------------------------------------
+    # SIMULACIÓN 7 — Creación de servicio VÁLIDO (AlquilerEquipo)
+    # ----------------------------------------------------------
+    print("\n[Sim 7] Crear servicio válido: Alquiler de Laptop por 5 días")
+    try:
+        s2 = AlquilerEquipo("Laptop", 5)
+        sim_servicios.append(s2)
+        print(f"  ✔ Servicio creado: {s2.descripcion()} | Costo con 10% impuesto: {s2.calcular_costo(impuesto=10)} pesos")
+        excepciones.registrar_log(f"[Sim 7] Servicio creado: {s2.descripcion()}")
+    except excepciones.ServicioError as e:
+        print(f"  ✘ Error inesperado: {e}")
+        excepciones.registrar_log(f"[Sim 7] Error: {e}")
+    # ----------------------------------------------------------
+    # SIMULACIÓN 8 — Creación de servicio VÁLIDO (ServicioEspecial) + reserva válida
+    # ----------------------------------------------------------
+    print("\n[Sim 8] Crear servicio especial válido y reserva para Ana García")
+    try:
+        s3 = ServiciosEspeciales("Asesoría en Ciberseguridad", 250000)
+        sim_servicios.append(s3)
+        print(f"  ✔ Servicio creado: {s3.descripcion()}")
+        excepciones.registrar_log(f"[Sim 8] Servicio creado: {s3.descripcion()}")
+        r1 = Reserva(sim_clientes[0], s3, 2)
+        r1.confirmar()
+        sim_reservas.append(r1)
+        print(f"  ✔ Reserva creada: {r1.mostrar_informacion()}")
+        excepciones.registrar_log(f"[Sim 8] Reserva creada: {r1.mostrar_informacion()}")
+    except (excepciones.ServicioError, excepciones.ReservaError) as e:
+        print(f"  ✘ Error inesperado: {e}")
+        excepciones.registrar_log(f"[Sim 8] Error: {e}")
+    # ----------------------------------------------------------
+    # SIMULACIÓN 9 — Creación de reserva INVÁLIDA (duración 0)
+    # ----------------------------------------------------------
+    print("\n[Sim 9] Crear reserva inválida: duración 0 horas")
+    try:
+        r_invalida = Reserva(sim_clientes[0], sim_servicios[0], 0)
+        sim_reservas.append(r_invalida)
+    except excepciones.ReservaError as e:
+        print(f"  ✘ Error capturado correctamente: {e}")
+        excepciones.registrar_log(f"[Sim 9] Error esperado: {e}")
+    except Exception as e:
+        raise excepciones.ReservaError("Error al crear reserva inválida") from e
+    finally:
+        print("  → Bloque finally: validación de duración de reserva finalizada")
+    # ----------------------------------------------------------
+    # SIMULACIÓN 10 — Cancelación de reserva VÁLIDA
+    # ----------------------------------------------------------
+    print("\n[Sim 10] Cancelar la reserva de Ana García")
+    try:
+        if len(sim_reservas) == 0:
+            raise excepciones.ReservaError("No hay reservas para cancelar")
+        reserva_a_cancelar = sim_reservas[0]
+        reserva_a_cancelar.cancelar()
+        sim_reservas.remove(reserva_a_cancelar)
+        print(f"  ✔ Reserva cancelada: {reserva_a_cancelar.mostrar_informacion()}")
+        excepciones.registrar_log(f"[Sim 10] Reserva cancelada: {reserva_a_cancelar.mostrar_informacion()}")
+    except excepciones.ReservaError as e:
+        print(f"  ✘ Error al cancelar: {e}")
+        excepciones.registrar_log(f"[Sim 10] Error: {e}")
+    print(f"\n{separador}")
+    print("   FIN DE SIMULACIONES")
+    print(f"   Clientes registrados: {len(sim_clientes)}")
+    print(f"   Servicios creados:    {len(sim_servicios)}")
+    print(f"   Reservas activas:     {len(sim_reservas)}")
+    print(separador)
+    excepciones.registrar_log("=== Fin de simulaciones ===")
+    
+# ============================================================
+# MENÚ PRINCIPAL DEL SISTEMA
+# ============================================================
+
 def menu():
+    
+    """
+    Función principal del sistema.
+    Muestra el menú y gestiona todas las operaciones.
+    """
     salir = False
+    separador = "=" * 60
     while True:
         try:
+            # ----------------------------------------------------------
             # Mostrar menú de opciones al usuario
+            # ----------------------------------------------------------
+            print(f"\n{separador}")
             print("\n ====== EMPRESA SOFTWARE FJ ====== \n")
             print("1. Registrar cliente")
             print("2. Crear servicio")
@@ -73,11 +247,16 @@ def menu():
             print("4. Ver reservas")
             print("5. Cancelar reserva")
             print("6. Salir")
+            print(f"\n{separador}")
 
+            # ----------------------------------------------------------
             # Solicita opción al usuario
+            # ----------------------------------------------------------
             opcion = int(input("\n - Seleccione el número de la opción:  "))
 
+            # ----------------------------------------------------------
             # Validación de opción
+            # ----------------------------------------------------------
             if opcion < 1 or opcion > 6:
                 raise ValueError("Opción fuera de rango")
 
@@ -85,9 +264,11 @@ def menu():
             # Manejo de error
             print(f"Error: {e}")
             excepciones.registrar_log(f"Error de valor: {e}")
-#se captura cualquier excepción de tipo ValueError que pueda ocurrir durante la selección de la opción del menú, se registra el error en el archivo de logs y se muestra un mensaje de error al usuario, luego se regresa al menú para que el usuario pueda intentar nuevamente
+            
         else:
-            # Flujo normal
+            # ----------------------------------------------------------
+            # Flujo normal del programa para cada opción
+            # ----------------------------------------------------------
             if opcion == 1:
                 try:
                     cliente = Cliente.registrar_cliente()
@@ -98,7 +279,7 @@ def menu():
                 except excepciones.ClienteError as e:
                     print(f"Error al registrar cliente: {e}")
                     excepciones.registrar_log(f"Error al registrar cliente: {e}")
-#se captura cualquier excepción que pueda ocurrir durante el proceso de registro del cliente, se registra el error en el archivo de logs y se muestra un mensaje de error al usuario
+
             elif opcion == 2:
                 try:
                     servicio = Servicio.crear_servicio()
@@ -111,7 +292,7 @@ def menu():
                 except ValueError as e:
                     print(f"Error al crear servicio: {e}")
                     excepciones.registrar_log(f"Error al crear servicio: {e}")
-#se captura cualquier excepción que pueda ocurrir durante el proceso de creación del servicio, se registra el error en el archivo de logs y se muestra un mensaje de error al usuario
+
             elif opcion == 3:
                 try:
                     if len(clientes) == 0:
@@ -141,7 +322,7 @@ def menu():
                 except excepciones.ReservaError as e:
                     print(f"Error al crear reserva: {e}")
                     excepciones.registrar_log(f"Error al crear reserva: {e}")
-#se captura cualquier excepción que pueda ocurrir durante el proceso de creación de la reserva, se registra el error en el archivo de logs y se muestra un mensaje de error al usuario
+
             elif opcion == 4:
                 try:
                     if len(reservas) == 0:
@@ -153,7 +334,7 @@ def menu():
                 except Exception as e:
                     excepciones.registrar_log(f"Error mostrando reservas: {e}")
                     print("Error al mostrar reservas")
- #se captura cualquier excepción que pueda ocurrir al mostrar las reservas, se registra el error en el archivo de logs y se muestra un mensaje de error al usuario                   
+ 
             elif opcion == 5:
                 try:
                     if len(reservas) == 0:
@@ -186,19 +367,32 @@ def menu():
                 break
 
         finally:
+            # --------------------------------------
             # Siempre se ejecuta
+            # --------------------------------------
             if not salir:
                 print("\n Regresando al menú...\n")
     
+    # ------------------------------------------------------------------------------------------------------------------------------------
+    # Al salir del programa, muestra un resumen de clientes, servicios y reservas, y registra el cierre del programa en el archivo de logs
+    # ------------------------------------------------------------------------------------------------------------------------------------
+    print(f"\n{separador}\n")
+    print("Resumen final del sistema:\n")
     print(clientes)
     print(servicios)
     print(reservas)
-    print("\n Gracias por usar el sistema de Software FJ. ¡Hasta luego! \n")
+    print("\n Gracias por utilizar los servicios de Software FJ. ¡Hasta luego! ")
+    print(f"\n{separador}")
     excepciones.registrar_log("Programa finalizado")
 
 
-
+# ------------------------------------------------------------------------------------------------------------------------------------------
 # Punto de entrada del programa
+# ------------------------------------------------------------------------------------------------------------------------------------------
 if __name__ == "__main__":
-    # Llama al menú
+    """
+    Punto de entrada del programa.
+    Llama al menú y a la función de simulación para ejecutar las operaciones completas.
+    """
     menu()
+    simular()

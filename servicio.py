@@ -1,17 +1,26 @@
-from abc import ABC, abstractmethod
-
-#se importa la clase entidad para que cliente pueda heredar de ella
+#------------------------------------------------------------------------------------------------------------------------
+# Importación de la función abstractmethod para definir métodos abstractos en la clase Servicio.
+#------------------------------------------------------------------------------------------------------------------------
+from abc import abstractmethod 
+#------------------------------------------------------------------------------------------------------------------------
+# Importacion de la clase Entidad para que cliente pueda heredar de ella
+#------------------------------------------------------------------------------------------------------------------------
 from entity import Entidad
-
-# Importación de módulos necesarios para la implementación de la clase Servicio y sus derivados, 
-# así como para el manejo de excepciones y la interacción con la clase Cliente.
+#------------------------------------------------------------------------------------------------------------------------
+# Importación del módulo de excepciones personalizadas para manejar errores específicos relacionados con los servicios.
+#------------------------------------------------------------------------------------------------------------------------
 import excepciones
 
-# ============================================================
+# =========================================================================================================
 # CLASE ABSTRACTA SERVICIO
-# ============================================================
+# =========================================================================================================
 
 class Servicio(Entidad):
+    """
+    Clase Servicio que representa un servicio ofrecido por el sistema.
+    Es una clase abstracta que define la estructura básica de un servicio, incluyendo su nombre, precio y métodos abstractos 
+    para calcular el costo y describir el servicio.    
+    """
     def __init__(self, nombre, precio):
         super().__init__()
         self.nombre = nombre
@@ -34,6 +43,9 @@ class Servicio(Entidad):
     
     __repr__ = __str__
     
+    # --------------------------------------------------------------------------------------------------------------------------------------------
+    # Método estático para crear un servicio a partir de la selección del usuario, solicitando los detalles necesarios para cada tipo de servicio.
+    # --------------------------------------------------------------------------------------------------------------------------------------------
     @staticmethod
     def crear_servicio():
         try:
@@ -67,6 +79,11 @@ class Servicio(Entidad):
 # ============================================================
 
 class ReservaSala(Servicio):
+    """
+    Clase ReservaSala que representa un servicio de reserva de sala.
+    Hereda de la clase Servicio y proporciona una implementación específica para calcular 
+    el costo basado en la duración de la reserva, así como una descripción del servicio.  
+    """
     def __init__(self, tiempo):
         super().__init__("Reserva de Sala", 50000) # Se llama al constructor de la clase base para establecer el nombre y precio del servicio.
         if tiempo <= 0:
@@ -81,6 +98,11 @@ class ReservaSala(Servicio):
       return f"Reserva de sala por {self.tiempo} horas"
 
 class AlquilerEquipo(Servicio):
+    """
+    Clase AlquilerEquipo que representa un servicio de alquiler de equipo.
+    Hereda de la clase Servicio y proporciona una implementación específica para calcular 
+    el costo basado en la cantidad de días para el alquiler, así como una descripción del servicio.  
+    """
     def __init__(self, equipo, dias):
         super().__init__("Alquiler de Equipo", 30000) # Se llama al constructor de la clase base para establecer el nombre y precio del servicio.
         if equipo.strip() == "":
@@ -98,6 +120,11 @@ class AlquilerEquipo(Servicio):
         return f"Alquiler de equipo: {self.equipo} por {self.dias} días"
     
 class ServiciosEspeciales(Servicio):
+    """
+    Clase ServiciosEspeciales que representa un servicio especial.
+    Hereda de la clase Servicio y proporciona una implementación específica para calcular 
+    el costo basado en un valor fijo, así como una descripción del servicio.  
+    """
     def __init__(self, nombre, costo_fijo):
         super().__init__(nombre, 0)  # Precio inicial en 0, ya que el costo es fijo
         if costo_fijo < 0:
@@ -110,21 +137,3 @@ class ServiciosEspeciales(Servicio):
     def descripcion(self):
         return f"Servicio especial: {self.nombre} | Costo: {self.costo_fijo} pesos"
     
-    
-    
-    
-    
-# Valores de prueba 
-#cliente1 = cliente.Cliente("123456789", "Juan Perez", "555-1234")
-#print(f"Documento: {cliente1.documento}")  # Imprime: 123456789
-#print(f"Nombre: {cliente1.nombre}")  # Imprime: Juan Perez
-#print(f"Teléfono: {cliente1.telefono}")  # Imprime: 555-1234
-# Ejemplo de modificación de un atributo utilizando el setter
-#cliente1.documento = "987654321"
-#print(f"Documento modificado: {cliente1.documento}")  # Imprime: 987654321
-# No es posible acceder directamente a los atributos privados desde fuera de la clase
-# Demostración del manejo de excepción de atributo
-#try:
-#    print(cliente1.__documentoCliente) # Se intenta acceder a un atributo privado directamente
-#except AttributeError:
-#    print(f"Error de atributo: El atributo no existe o no es accesible.") # Imprime el mensaje de error de atributo. También es necesario manejar la excepción y registrarlo en el archivo de logs a futuro
