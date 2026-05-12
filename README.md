@@ -81,9 +81,9 @@ SELECCIONE EL NÚMERO DE LA OPCIÓN:
 
 # NOTA
 (Dependiendo de la opcion selecionada los requsitos u datos de
-ingreseo seran distos segun la tarea a derrollar dentro del sistema)
+ingreseo seran vistos segun la tarea a derrollar dentro del sistema)
 
-# Informacion resumida de esturtura del proyecto
+# Informacion resumida de la estructura del proyecto
 El proyecto sigue una estructura basada en la Programación Orientada a Objetos (POO) aplicada en un sistema que implementa modulación estructural, validando la división de tareas en archivos .py y facilitando el mantenimiento y actualización del sistema.
 
 La arquitectura se dirige a la atención de módulos base como (Cliente, Reservas, Servicios). Sin uso de bases de datos, aplicando métodos de herencia, listas o encapsulamiento y aplicación de abstracción general, sujetas a validaciones y excepciones aplicadas a las necesidades.

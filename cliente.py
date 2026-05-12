@@ -10,6 +10,10 @@ import excepciones
 # Clase cliente que encapsula los datos personales de un cliente
 # --------------------------------------------------------------------------------------------------------------------------------------------
 class Cliente(Entidad):
+    """
+    Clase Cliente que representa a un cliente del sistema.
+    Hereda de la clase Entidad para aprovechar su funcionalidad básica.
+    """
     def __init__(self, nombre, documento,telefono):
         super().__init__()
         self.__nombreCliente = nombre
