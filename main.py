@@ -306,13 +306,22 @@ def menu():
 
                         seleccionar_cliente = int(input("\n - Seleccione cliente: "))
 
+                        if seleccionar_cliente < 0 or seleccionar_cliente >= len(clientes):
+                            raise ValueError("Índice de cliente inválido")
+
                         print("\nSERVICIOS")
                         for i, s in enumerate(servicios):
                             print(i, "-", s.nombre)
 
                         seleccionar_servicio = int(input("\n - Seleccione servicio: "))
-                        
-                        reserva = Reserva.crear_reserva(clientes[seleccionar_cliente], servicios[seleccionar_servicio])
+
+                        if seleccionar_servicio < 0 or seleccionar_servicio >= len(servicios):
+                            raise ValueError("Índice de servicio inválido")
+
+                        reserva = Reserva.crear_reserva(
+                            clientes[seleccionar_cliente],
+                            servicios[seleccionar_servicio]
+                        )
                         reservas.append(reserva)
                         print(f" \n • Reserva creada exitosamente: \n\n {reserva.mostrar_informacion()}")
                         excepciones.registrar_log(f" Reserva creada: {reserva.mostrar_informacion()}")
@@ -394,5 +403,6 @@ if __name__ == "__main__":
     Punto de entrada del programa.
     Llama al menú y a la función de simulación para ejecutar las operaciones completas.
     """
-    menu()
+    
     simular()
+    menu()
