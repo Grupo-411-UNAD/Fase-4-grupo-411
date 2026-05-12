@@ -8,12 +8,16 @@ import excepciones
 # CLASE RESERVA
 # ============================================================================================================================================
 
-class Reserva():
+from entity import Entidad
+
+class Reserva(Entidad):
     """
     Clase Reserva que representa una reserva realizada por un cliente para un servicio específico.
     Contiene información sobre el cliente, el servicio, la duración de la reserva y su estado
     """
     def __init__(self, cliente, servicio, duracion):
+        super().__init__()
+
         if duracion <= 0:
             raise excepciones.ReservaError("La duración de la reserva debe ser mayor que cero.")
 

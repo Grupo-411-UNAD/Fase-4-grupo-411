@@ -70,8 +70,8 @@ class Servicio(Entidad):
             else:
                 raise ValueError("Opción inválida para crear servicio")
         
-        except ValueError:
-                raise ValueError("Entrada inválida. Debe ingresar números correctos.")
+        except ValueError as e:
+                raise ValueError(f"Entrada inválida. Debe ingresar números correctos. Error: {e}")
 
 
 # ============================================================
@@ -90,10 +90,12 @@ class ReservaSala(Servicio):
             raise excepciones.ServicioError("La tiempo de duracion de la reserva debe ser mayor que cero.")
         self.tiempo = tiempo
 
+#Sobreescritura de metodo calcular_costo abstracto 
     def calcular_costo(self, descuento=0): # El método calcular_costo ahora incluye un parámetro opcional para aplicar un descuento al costo total de la reserva.
         costo = self.tiempo * self.precio
         return costo - (costo * descuento/ 100)
 
+#Sobreescritura de metodo descripcion abstracto
     def descripcion(self):
       return f"Reserva de sala por {self.tiempo} horas"
 
@@ -115,7 +117,7 @@ class AlquilerEquipo(Servicio):
     def calcular_costo(self, impuesto=0): # El método calcular_costo ahora incluye un parámetro opcional para aplicar un impuesto al costo total del alquiler.
         costo = self.dias * self.precio
         return costo + (costo * impuesto/ 100)
-
+    
     def descripcion(self):
         return f"Alquiler de equipo: {self.equipo} por {self.dias} días"
     

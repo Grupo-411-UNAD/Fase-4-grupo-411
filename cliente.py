@@ -10,8 +10,35 @@ import excepciones
 # Clase cliente que encapsula los datos personales de un cliente
 # --------------------------------------------------------------------------------------------------------------------------------------------
 class Cliente(Entidad):
-    def __init__(self, nombre, documento,telefono):
+    def __init__(self, nombre, documento, telefono):
+
         super().__init__()
+
+        if not nombre.replace(" ", "").isalpha():
+            raise excepciones.ClienteError(
+            "El nombre solo debe contener letras"
+            )
+
+        if (
+            not documento.isdigit()
+            or len(documento) < 6
+            or len(documento) > 12
+            or documento[0] == '0'
+            ):
+            raise excepciones.ClienteError(
+            "Documento inválido"
+            )
+
+        if (
+            not telefono.isdigit()
+            or len(telefono) < 7
+            or len(telefono) > 15
+            or telefono[0] == '0'
+            ):
+            raise excepciones.ClienteError(
+                "Teléfono inválido"
+            )
+# Atributos encapsulados con doble guion bajo para proteger los datos
         self.__nombreCliente = nombre
         self.__documentoCliente = documento
         self.__telefonoCliente = telefono
@@ -21,9 +48,9 @@ class Cliente(Entidad):
 
     __repr__ = __str__
     
-    # -----------------------------------------------------------------------------------------------------
-    # Métodos getter y setter para acceder y modificar los atributos del cliente desde fuera de la clase
-    # -----------------------------------------------------------------------------------------------------
+    # ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    # Métodos getter y setter para acceder y modificar los atributos del cliente desde fuera de la clase y encapsular los datos para protegerlos de accesos no autorizados.
+    # ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
     
     # nombre
     @property
@@ -64,13 +91,36 @@ class Cliente(Entidad):
     
     @staticmethod
     def registrar_cliente():
-        nombre = input("\n -Ingrese el nombre del cliente:  ")
-        if not nombre.replace(" ", "").isalpha(): # Validación del nombre para que solo contenga letras y espacios.
-            raise excepciones.ClienteError("El nombre solo debe contener letras")
-        documento = input("\n -Ingrese el documento del cliente:  ")
-        if not documento.isdigit() or len(documento) < 6 or len(documento) > 12 or documento[0] == '0': # Validación del documento para que sea numérico, tenga una longitud adecuada y no comience con cero.   
-            raise excepciones.ClienteError("Documento inválido")
-        telefono = input("\n -Ingrese el teléfono del cliente:  ")
-        if not telefono.isdigit() or len(telefono) < 7 or len(telefono) > 15 or telefono[0] == '0': # Validación del teléfono para que sea numérico, tenga una longitud adecuada y no comience con cero.
-            raise excepciones.ClienteError("Teléfono inválido")
-        return Cliente(nombre, documento, telefono)
+        try:
+
+            nombre = input("\n -Ingrese el nombre del cliente:  ")
+
+            if not nombre.replace(" ", "").isalpha():
+                raise excepciones.ClienteError("El nombre solo debe contener letras")
+
+            documento = input("\n -Ingrese el documento del cliente:  ")
+
+            if (
+                not documento.isdigit()
+                or len(documento) < 6
+                or len(documento) > 12
+                or documento[0] == '0'
+            ):
+                raise excepciones.ClienteError("Documento inválido")
+
+            telefono = input("\n -Ingrese el teléfono del cliente:  ")
+
+            if (
+                not telefono.isdigit()
+                or len(telefono) < 7
+                or len(telefono) > 15
+                or telefono[0] == '0'
+            ):
+                raise excepciones.ClienteError("Teléfono inválido")
+
+            return Cliente(nombre, documento, telefono)
+
+        except Exception as e:
+
+            excepciones.registrar_log(f"Error registrando cliente: {e}")
+            raise
